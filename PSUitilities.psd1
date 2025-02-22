@@ -12,7 +12,7 @@
     # RootModule = ''
     
     # Version number of this module.
-    ModuleVersion = '0.0.0'
+    ModuleVersion = '0.1.0'
     
     # Supported PSEditions
     CompatiblePSEditions = @("Core", "Desk")
@@ -96,6 +96,7 @@
         'Python-CheckUpdates'
         'Python-ExportRequirements'
         'Python-InstallPyinstallerDev'
+        'Python-AddVersionHardlinks'
     )
     
     # Cmdlets to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no cmdlets to export.
@@ -113,6 +114,7 @@
         'python_check_updates'
         'python_export_requirements'
         'python_install_pyinstaller_dev'
+        'python_add_version_hardlinks'
     )
     
     # DSC resources to export from this module

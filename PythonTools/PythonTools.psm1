@@ -436,3 +436,89 @@ function Python-InstallPyinstallerDev
 }
 
 Set-Alias -Name python_install_pyinstaller_dev -Value Python-InstallPyinstallerDev
+
+<#
+.SYNOPSIS
+    Creates Python version hardlinks with safety checks and dry-run support.
+
+.DESCRIPTION
+    Finds genuine Python installations (excluding existing hardlinks), creates
+    version-specific hardlinks (e.g., python3.10.exe), and supports WhatIf/Verbose.
+    Requires admin rights for protected directories.
+
+.PARAMETER WhatIf
+    Shows what would happen without making changes
+
+.PARAMETER Confirm
+    Prompts for confirmation before creating links
+
+.EXAMPLE
+    Python-AddVersionHardlinks -WhatIf -Verbose
+    Dry-run with detailed output
+#>
+function Python-AddVersionHardlinks 
+{
+    [CmdletBinding(SupportsShouldProcess=$true)]
+    param()
+
+    $pythonPaths = where.exe python.exe 2>$null | Where-Object { $_ -ne "" }
+
+    if (-not $pythonPaths) 
+    {
+        Write-Warning "No python.exe installations found."
+        return
+    }
+
+    foreach ($pythonPath in $pythonPaths) {
+        try {
+            Write-Verbose "Examining: $pythonPath"
+            $file = Get-Item $pythonPath -ErrorAction Stop
+            
+            if ($file.LinkType -eq 'HardLink') {
+                Write-Verbose "Skipping hardlink: $pythonPath"
+                continue
+            }
+        } catch {
+            Write-Warning "Could not access path $pythonPath : $_"
+            continue
+        }
+
+        $dir = $file.Directory.FullName
+        Write-Verbose "Processing genuine installation at: $pythonPath"
+
+        try {
+            $versionOutput = & $pythonPath --version 2>&1
+            Write-Verbose "Version output: $versionOutput"
+        } catch {
+            Write-Warning "Failed to execute $pythonPath : $_"
+            continue
+        }
+
+        if ($versionOutput -match 'Python (\d+\.\d+)\.\d+') {
+            $majorMinor = $Matches[1]
+            $hardlinkName = "python$majorMinor.exe"
+            $hardlinkPath = Join-Path $dir $hardlinkName
+
+            if (-not (Test-Path $hardlinkPath)) {
+                $actionMessage = "Create hardlink '$hardlinkName' in $dir"
+                
+                if ($PSCmdlet.ShouldProcess($actionMessage, "Confirm creation?", "Create version hardlink")) {
+                    try {
+                        New-Item -ItemType HardLink -Path $hardlinkPath -Target $pythonPath -ErrorAction Stop
+                        Write-Host "Created: $hardlinkPath" -ForegroundColor Green
+                    } catch {
+                        Write-Warning "Creation failed: $_ (Admin rights needed?)"
+                    }
+                }
+            } else {
+                Write-Verbose "Already exists: $hardlinkPath"
+                Write-Host "Exists: $hardlinkPath" -ForegroundColor Yellow
+            }
+        } else {
+            Write-Warning "Version detection failed for $pythonPath"
+            Write-Verbose "Raw version output: $versionOutput"
+        }
+    }
+}
+
+Set-Alias -Name python_add_version_hardlinks -Value Python-AddVersionHardlinks

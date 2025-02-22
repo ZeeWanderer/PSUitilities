@@ -42,3 +42,4 @@ Or add the cloned repository to `PSModulePath` environment variable for autoimpo
 - **Python-CheckUpdates**: Lists outdated Python packages with version information.
 - **Python-ExportRequirements**: Exports all installed Python packages in requirements.txt format.
 - **Python-InstallPyinstallerDev**: Installs the development version of PyInstaller from GitHub.
+- **Python-AddVersionHardlinks**: Creates Python version hardlinks
