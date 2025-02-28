@@ -12,7 +12,7 @@
     # RootModule = ''
     
     # Version number of this module.
-    ModuleVersion = '0.1.0'
+    ModuleVersion = '0.1.1'
     
     # Supported PSEditions
     CompatiblePSEditions = @("Core", "Desk")
@@ -108,6 +108,22 @@
     # Aliases to export from this module, for best performance, do not use wildcards and do not delete the entry, use an empty array if there are no aliases to export.
     AliasesToExport = @(
         # GitTools
+        'git_submodule_update'
+        'git_submodule_update_init'
+        'git_submodule_update_init_recursive'
+        'git_submodule_deinit'
+        'git_clean_submodules'
+        'git_all_submodules_reset_hard'
+        'git_submodule_update_pull'
+        'git_fetch_upstream'
+        'git_pull_upstream'
+        'git_reset'
+        'git_reset_hard'
+        'git_reset_hard_times'
+        'git_remove_derived_tags'
+        'git_exterminatus'
+        'git_remove_local_branches_not_on_remote'
+
         # PythonTools
         'python_upgrade_pip'
         'python_update_packages'

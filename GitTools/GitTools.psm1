@@ -39,6 +39,8 @@ function Git-SubmoduleUpdate
     }
 }
 
+Set-Alias -Name git_submodule_update -Value Git-SubmoduleUpdate
+
 <#
 .SYNOPSIS
 Initializes and updates all git submodules.
@@ -71,6 +73,8 @@ function Git-SubmoduleUpdateInit
         }
     }
 }
+
+Set-Alias -Name git_submodule_update_init -Value Git-SubmoduleUpdateInit
 
 <#
 .SYNOPSIS
@@ -110,6 +114,8 @@ function Git-SubmoduleUpdateInitRecursive
     }
 }
 
+Set-Alias -Name git_submodule_update_init_recursive -Value Git-SubmoduleUpdateInitRecursive
+
 <#
 .SYNOPSIS
 Deinitializes git submodule.
@@ -147,6 +153,8 @@ function Git-SubmoduleDeinit {
     }
 }
 
+Set-Alias -Name git_submodule_deinit -Value Git-SubmoduleDeinit
+
 <#
 .SYNOPSIS
 Checks out all files in all submodules recursively.
@@ -180,6 +188,8 @@ function Git-CleanSubmodules
     }
 }
 
+Set-Alias -Name git_clean_submodules -Value Git-CleanSubmodules
+
 <#
 .SYNOPSIS
 Resets all submodules to their HEAD state.
@@ -210,6 +220,8 @@ function Git-AllSubmodulesResetHard
         Write-Error "An error occurred while resetting submodules: $_"
     }
 }
+
+Set-Alias -Name git_all_submodules_reset_hard -Value Git-AllSubmodulesResetHard
 
 <#
 .SYNOPSIS
@@ -247,6 +259,8 @@ function Git-SubmoduleUpdatePull
     }
 }
 
+Set-Alias -Name git_submodule_update_pull -Value Git-SubmoduleUpdatePull
+
 
 <#
 .SYNOPSIS
@@ -276,6 +290,8 @@ function Git-FetchUpstream
         Write-Error "An error occurred during the upstream fetch and rebase: $_"
     }
 }
+
+Set-Alias -Name git_fetch_upstream -Value Git-FetchUpstream
 
 
 <#
@@ -308,6 +324,8 @@ function Git-PullUpstream
     }
 }
 
+Set-Alias -Name git_pull_upstream -Value Git-PullUpstream
+
 
 <#
 .SYNOPSIS
@@ -326,6 +344,8 @@ function Git-Reset([String]$commit_hash)
 		git reset HEAD^
 	}
 }
+
+Set-Alias -Name git_reset -Value Git-Reset
 
 <#
 .SYNOPSIS
@@ -367,6 +387,8 @@ function Git-ResetHard
     }
 }
 
+Set-Alias -Name git_reset_hard -Value Git-ResetHard
+
 <#
 .SYNOPSIS
 Hard resets the current branch to a specified number of commits back.
@@ -403,6 +425,7 @@ function Git-ResetHard-Times
     }
 }
 
+Set-Alias -Name git_reset_hard_times -Value Git-ResetHard-Times
 
 <#
 .SYNOPSIS
@@ -517,6 +540,8 @@ function Git-RemoveDerivedTags
     }
 }
 
+Set-Alias -Name git_remove_derived_tags -Value Git-RemoveDerivedTags
+
 <#
 .SYNOPSIS
 Cleans the git repository by removing untracked files and directories.
@@ -569,6 +594,7 @@ function Git-Exterminatus
     }
 }
 
+Set-Alias -Name git_exterminatus -Value Git-Exterminatus
 
 <#
 .SYNOPSIS
@@ -710,3 +736,5 @@ function Git-RemoveLocalBranchesNotOnRemote
 		}
 	}
 }
+
+Set-Alias -Name git_remove_local_branches_not_on_remote -Value Git-RemoveLocalBranchesNotOnRemote
